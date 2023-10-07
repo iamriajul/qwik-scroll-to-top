@@ -25,11 +25,9 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
                                                           }) => {
   const visible = useSignal(false);
 
-  const onScroll = $(() => {
+  useOnDocument('scroll', $(() => {
     visible.value = document.documentElement.scrollTop >= top;
-  });
-
-  useOnDocument('scroll', onScroll);
+  }));
 
   return (
     <>
