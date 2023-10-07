@@ -1,7 +1,23 @@
 {
-  "name": "my-qwik-library-name",
+  "name": "qwik-scroll-to-top",
   "version": "0.0.1",
-  "description": "Create a reusable Qwik component library",
+  "description": "Lightweight button component for scrolling to the top of a page",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamriajul/qwik-scroll-to-top"
+  },
+  "author": "Riajul Islam <kmriajulislami@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamriajul/qwik-scroll-to-top/issues"
+  },
+  "homepage": "https://github.com/iamriajul/qwik-scroll-to-top",
+  "keywords": [
+    "qwik",
+    "scroll",
+    "scroll-up",
+    "scroll-to-top"
+  ],
   "main": "./lib/index.qwik.mjs",
   "qwik": "./lib/index.qwik.mjs",
   "types": "./lib-types/index.d.ts",
@@ -47,6 +63,7 @@
     "prettier": "3.0.0",
     "typescript": "5.1.6",
     "undici": "5.22.1",
+    "uniqolor": "^1.1.0",
     "vite": "4.4.7",
     "vite-tsconfig-paths": "4.2.0"
   }

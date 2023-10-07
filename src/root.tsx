@@ -1,5 +1,5 @@
-import { Counter } from "./components/counter/counter";
-import { Logo } from "./components/logo/logo";
+import {ScrollToTop} from "./components/scroll-to-top";
+import uniqolor from "uniqolor";
 
 export default () => {
   return (
@@ -9,8 +9,16 @@ export default () => {
         <title>Qwik Blank App</title>
       </head>
       <body>
-        <Logo />
-        <Counter />
+      {Array.from({length: 100}, (_, i) => (
+        <div key={i}
+             style={{
+               width: '100%',
+               height: '100px',
+               backgroundColor: uniqolor(i).color,
+             }}/>
+      ))}
+
+      <ScrollToTop />
       </body>
     </>
   );
