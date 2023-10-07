@@ -1,5 +1,7 @@
-import {type ButtonHTMLAttributes, component$, useSignal, useVisibleTask$} from "@builder.io/qwik";
+import {type ButtonHTMLAttributes, component$, useSignal} from "@builder.io/qwik";
 import ScrollButton from "./scroll-button/scroll-button";
+import {isBrowser} from "@builder.io/qwik/build";
+import ScrollToTopCsr from "./scroll-to-top-csr";
 
 export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   top?: number;
@@ -10,7 +12,6 @@ export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElemen
   width?: string;
   height?: string;
 }
-
 
 export const ScrollToTop = component$<IScrollToTopProps>(({
                                                             top = 20,
@@ -23,29 +24,20 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
                                                             height = "28",
                                                             ...props
                                                           }) => {
-  const visible = useSignal(false);
-
-  useVisibleTask$(ctx => {
-    const onScroll = () => {
-      visible.value = document.documentElement.scrollTop >= top;
-    }
-    onScroll();
-    document.addEventListener('scroll', onScroll);
-    ctx.cleanup(() => document.removeEventListener('scroll', onScroll));
-  });
+  const isBrowserSignal = useSignal(isBrowser);
 
   return (
     <>
-      {visible.value && <ScrollButton
+      {isBrowserSignal.value && <ScrollToTopCsr
+        {...props}
         top={top}
-        smooth={smooth}
         color={color}
+        smooth={smooth}
         component={component}
         viewBox={viewBox}
         svgPath={svgPath}
         width={width}
         height={height}
-        {...props}
       />}
     </>
   );
