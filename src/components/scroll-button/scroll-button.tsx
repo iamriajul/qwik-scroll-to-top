@@ -2,22 +2,20 @@ import {component$, useStylesScoped$} from "@builder.io/qwik";
 import {IScrollToTopProps} from "../scroll-to-top";
 import styles from "./scroll-button.css?inline";
 
-function scrollToTop(smooth: boolean = false) {
-  if (smooth) {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  } else {
-    document.documentElement.scrollTop = 0;
-  }
-}
-
 export default component$<IScrollToTopProps>((props) => {
   useStylesScoped$(styles);
   const smooth = props.smooth || false;
   return <button
-    onClick$={() => scrollToTop(smooth)}
+    onClick$={() => {
+      if (smooth) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      } else {
+        document.documentElement.scrollTop = 0;
+      }
+    }}
     aria-label="Scroll to top"
     {...props}
     class={`scroll-to-top ${props.class}`}
