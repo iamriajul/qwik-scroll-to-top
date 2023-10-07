@@ -1,47 +1,78 @@
-# Qwik Library ⚡️
+# qwik-scroll-to-top
 
-- [Qwik Docs](https://qwik.builder.io/)
-- [Discord](https://qwik.builder.io/chat)
-- [Qwik on GitHub](https://github.com/BuilderIO/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
-- [Partytown](https://partytown.builder.io/)
-- [Mitosis](https://github.com/BuilderIO/mitosis)
-- [Builder.io](https://www.builder.io/)
+A lightweight and customizable button component that scrolls to the top of a page when pressed  
+The button is only visible once a certain height has been reached on the page
 
----
+[![NPM](https://nodei.co/npm/react-scroll-to-top.png)](https://nodei.co/npm/react-scroll-to-top/)
 
-## Project Structure
+## Live demo
 
-Inside your project, you'll see the following directories and files:
+[A live demo can be found here](https://codesandbox.io/s/react-scroll-to-top-demo-rmuvx?file=/src/App.js)
 
-```
-├── public/
-│   └── ...
-└── src/
-    ├── components/
-    │   └── ...
-    └── index.ts
+## Installation
+
+With pnpm:
+
+```sh
+pnpm i qwik-scroll-to-top
 ```
 
-- `src/components`: Recommended directory for components.
+With npm:
 
-- `index.ts`: The entry point of your component library, make sure all the public components are exported from this file.
-
-## Development
-
-Development mode uses [Vite's development server](https://vitejs.dev/). For Qwik during development, the `dev` command will also server-side render (SSR) the output. The client-side development modules are loaded by the browser.
-
-```
-pnpm dev
+```sh
+npm i qwik-scroll-to-top
 ```
 
-> Note: during dev mode, Vite will request many JS files, which does not represent a Qwik production build.
+or with Yarn:
 
-## Production
+```sh
+ yarn add qwik-scroll-to-top
+ ```
 
-The production build should generate the production build of your component library in (./lib) and the typescript type definitions in (./lib-types).
+## Usage
 
+Import and then add `<ScrollToTop />` at the bottom of your return function (for a11y reasons):
+
+```js
+import { ScrollToTop } from "qwik-scroll-to-top";
+
+function CoolPage() {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <div style={{ marginTop: "150vh" }} />
+      <ScrollToTop smooth />
+    </div>
+  );
+}
 ```
-pnpm build
-```
+
+## Props
+
+| Prop      | Type    | Description                                                                        | Default       |
+|-----------| ------- |------------------------------------------------------------------------------------| ------------- |
+| smooth    | boolean | Whether to use smooth scrolling\*                                                  | false         |
+| top       | number  | Height after page scroll to be visible                                             | 20            |
+| color     | string  | The SVG icon fill color                                                            | "black"       |
+| svgPath   | string  | The SVG icon path d attribute                                                      | An arrow path |
+| width     | string  | The SVG icon width                                                                 | "28"          |
+| height    | string  | The SVG icon height                                                                | "28"          |
+| viewBox   | string  | The SVG icon viewBox attribute                                                     | "0 0 256 256" |
+| component | any     | Component to override SVG icon. See examples                                       |               |
+| style     | Object  | Object to add/override styling                                                     |               |
+| class     | string  | Class to add/override styling (note, `!important` for overrides might be needed)   |               |
+
+Smooth scrolling uses a newer `window.scrollTo` implementation.\
+[Check out its support in browsers at MDN web docs](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo).
+
+## Examples
+
+[With custom SVG path](https://codesandbox.io/s/react-scroll-to-top-svg-path-y2ztc?file=/src/App.js)  
+[With custom SVG component](https://codesandbox.io/s/react-scroll-to-top-custom-svg-or74g?file=/src/App.js)  
+[With custom DOM element](https://codesandbox.io/s/react-scroll-to-top-custom-dom-element-y7j0f?file=/src/App.js)
+
+## Types
+
+Written in TypeScript, no need for @types installation
+
+Ported from: [react-scroll-to-top](https://github.com/HermanNygaard/react-scroll-to-top)
