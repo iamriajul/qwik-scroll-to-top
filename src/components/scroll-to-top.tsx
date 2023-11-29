@@ -4,7 +4,7 @@ import {
   component$,
   Slot,
   useOnDocument,
-  useSignal,
+  useSignal, useTask$,
 } from "@builder.io/qwik";
 import ScrollButton from "./scroll-button/scroll-button";
 
@@ -29,11 +29,24 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
                                                             height = "28",
                                                             ...props
                                                           }) => {
+
+  const canScroll = useSignal(false);
   const visible = useSignal(false);
 
   useOnDocument('scroll', $(() => {
-    visible.value = document.documentElement.scrollTop >= top;
+    if (!canScroll.value) canScroll.value = true;
   }));
+
+  useTask$(ctx => {
+    if (ctx.track(() => !canScroll.value)) return;
+
+    const onScrollChanged = () => {
+      visible.value = document.documentElement.scrollTop >= top;
+    }
+    onScrollChanged();
+    document.addEventListener('scroll', onScrollChanged);
+    ctx.cleanup(() => document.removeEventListener('scroll', onScrollChanged));
+  });
 
   return (
     <>
