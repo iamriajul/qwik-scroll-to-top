@@ -1,12 +1,12 @@
 import {
   type ButtonHTMLAttributes,
-  component$,
+  component$, type CSSProperties,
   Slot,
 } from "@builder.io/qwik";
 import ScrollButton from "./scroll-button/scroll-button";
 import * as vanilla from "./vanilla?inline";
 
-export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IScrollToTopProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'id'> {
   top?: number;
   smooth?: boolean;
   svgPath?: string;
@@ -14,6 +14,7 @@ export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElemen
   width?: string;
   height?: string;
   useSlot?: boolean;
+  style?: CSSProperties;
 }
 
 export const ScrollToTop = component$<IScrollToTopProps>(({

@@ -1,6 +1,6 @@
 {
   "name": "qwik-scroll-to-top",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lightweight button component for scrolling to the top of a page",
   "repository": {
     "type": "git",
