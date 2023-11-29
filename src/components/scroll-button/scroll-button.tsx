@@ -6,19 +6,14 @@ export default component$<IScrollToTopProps>((props) => {
   useStylesScoped$(styles);
   const smooth = props.smooth || false;
   return <button
-    onClick$={() => {
-      if (smooth) {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      } else {
-        document.documentElement.scrollTop = 0;
-      }
-    }}
+    id="qwik-scroll-to-top"
+    data-smooth={smooth}
     aria-label="Scroll to top"
     {...props}
     class={`scroll-to-top ${props.class}`}
+    style={{
+      display: "none",
+    }}
   >
     {props.useSlot ? <Slot /> : (
       <svg width={props.width} height={props.height} fill={props.color} viewBox={props.viewBox}>

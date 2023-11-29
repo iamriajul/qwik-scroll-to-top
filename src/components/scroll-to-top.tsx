@@ -1,12 +1,10 @@
 import {
-  $,
   type ButtonHTMLAttributes,
   component$,
   Slot,
-  useOnDocument,
-  useSignal, useTask$,
 } from "@builder.io/qwik";
 import ScrollButton from "./scroll-button/scroll-button";
+import * as vanilla from "./vanilla?inline";
 
 export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   top?: number;
@@ -18,7 +16,6 @@ export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElemen
   useSlot?: boolean;
 }
 
-
 export const ScrollToTop = component$<IScrollToTopProps>(({
                                                             top = 20,
                                                             color = "black",
@@ -29,28 +26,9 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
                                                             height = "28",
                                                             ...props
                                                           }) => {
-
-  const canScroll = useSignal(false);
-  const visible = useSignal(false);
-
-  useOnDocument('scroll', $(() => {
-    if (!canScroll.value) canScroll.value = true;
-  }));
-
-  useTask$(ctx => {
-    if (ctx.track(() => !canScroll.value)) return;
-
-    const onScrollChanged = () => {
-      visible.value = document.documentElement.scrollTop >= top;
-    }
-    onScrollChanged();
-    document.addEventListener('scroll', onScrollChanged);
-    ctx.cleanup(() => document.removeEventListener('scroll', onScrollChanged));
-  });
-
   return (
     <>
-      {visible.value && <ScrollButton
+      <ScrollButton
         top={top}
         smooth={smooth}
         color={color}
@@ -61,7 +39,8 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
         {...props}
       >
         <Slot />
-      </ScrollButton>}
+      </ScrollButton>
+      <script defer async dangerouslySetInnerHTML={`(${vanilla.default})();`}/>
     </>
   );
 });
