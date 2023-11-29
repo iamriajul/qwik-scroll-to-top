@@ -1,4 +1,11 @@
-import {type ButtonHTMLAttributes, component$, Slot, useSignal, useVisibleTask$} from "@builder.io/qwik";
+import {
+  $,
+  type ButtonHTMLAttributes,
+  component$,
+  Slot,
+  useOnDocument,
+  useSignal,
+} from "@builder.io/qwik";
 import ScrollButton from "./scroll-button/scroll-button";
 
 export interface IScrollToTopProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -24,14 +31,9 @@ export const ScrollToTop = component$<IScrollToTopProps>(({
                                                           }) => {
   const visible = useSignal(false);
 
-  useVisibleTask$(ctx => {
-    const onScroll = () => {
-      visible.value = document.documentElement.scrollTop >= top;
-    }
-    onScroll();
-    document.addEventListener('scroll', onScroll);
-    ctx.cleanup(() => document.removeEventListener('scroll', onScroll));
-  }, {strategy: 'document-ready'});
+  useOnDocument('scroll', $(() => {
+    visible.value = document.documentElement.scrollTop >= top;
+  }));
 
   return (
     <>
